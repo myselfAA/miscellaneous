@@ -1,0 +1,54 @@
+Name:             grafana-55fd8c98dd-qs2xl
+Namespace:        monitoring
+Priority:         0
+Service Account:  default
+Node:             gke-thbs-default-pool-e558cc4b-7xhm/10.128.0.17
+Start Time:       Fri, 29 Sep 2023 11:12:58 +0000
+Labels:           app=grafana
+                  pod-template-hash=55fd8c98dd
+Annotations:      <none>
+Status:           Pending
+IP:               10.48.1.59
+IPs:
+  IP:           10.48.1.59
+Controlled By:  ReplicaSet/grafana-55fd8c98dd
+Containers:
+  grafana:
+    Container ID:   
+    Image:          gcr.io/cre-prometheus-slo-alerting/grafana:latest
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-mpdqd (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-mpdqd:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                     From               Message
+  ----     ------     ----                    ----               -------
+  Normal   Scheduled  9m45s                   default-scheduler  Successfully assigned monitoring/grafana-55fd8c98dd-qs2xl to gke-thbs-default-pool-e558cc4b-7xhm
+  Normal   Pulling    8m21s (x4 over 9m44s)   kubelet            Pulling image "gcr.io/cre-prometheus-slo-alerting/grafana:latest"
+  Warning  Failed     8m20s (x4 over 9m44s)   kubelet            Failed to pull image "gcr.io/cre-prometheus-slo-alerting/grafana:latest": rpc error: code = Unknown desc = failed to pull and unpack image "gcr.io/cre-prometheus-slo-alerting/grafana:latest": failed to resolve reference "gcr.io/cre-prometheus-slo-alerting/grafana:latest": failed to authorize: failed to fetch oauth token: unexpected status from GET request to https://gcr.io/v2/token?scope=repository%3Acre-prometheus-slo-alerting%2Fgrafana%3Apull&service=gcr.io: 403 Forbidden
+  Warning  Failed     8m20s (x4 over 9m44s)   kubelet            Error: ErrImagePull
+  Warning  Failed     7m52s (x6 over 9m43s)   kubelet            Error: ImagePullBackOff
+  Normal   BackOff    4m43s (x20 over 9m43s)  kubelet            Back-off pulling image "gcr.io/cre-prometheus-slo-alerting/grafana:latest"

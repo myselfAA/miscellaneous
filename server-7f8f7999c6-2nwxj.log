@@ -1,0 +1,56 @@
+Name:             server-7f8f7999c6-2nwxj
+Namespace:        monitoring
+Priority:         0
+Service Account:  default
+Node:             gke-thbs-default-pool-e558cc4b-7xhm/10.128.0.17
+Start Time:       Fri, 29 Sep 2023 11:12:57 +0000
+Labels:           app=server
+                  pod-template-hash=7f8f7999c6
+Annotations:      <none>
+Status:           Pending
+IP:               10.48.1.57
+IPs:
+  IP:           10.48.1.57
+Controlled By:  ReplicaSet/server-7f8f7999c6
+Containers:
+  server:
+    Container ID:   
+    Image:          gcr.io/cre-prometheus-slo-alerting/example-server:latest
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://:appport/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:appport/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-xqsfx (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-xqsfx:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  12m                   default-scheduler  Successfully assigned monitoring/server-7f8f7999c6-2nwxj to gke-thbs-default-pool-e558cc4b-7xhm
+  Normal   Pulling    10m (x4 over 12m)     kubelet            Pulling image "gcr.io/cre-prometheus-slo-alerting/example-server:latest"
+  Warning  Failed     10m (x4 over 12m)     kubelet            Failed to pull image "gcr.io/cre-prometheus-slo-alerting/example-server:latest": rpc error: code = Unknown desc = failed to pull and unpack image "gcr.io/cre-prometheus-slo-alerting/example-server:latest": failed to resolve reference "gcr.io/cre-prometheus-slo-alerting/example-server:latest": failed to authorize: failed to fetch oauth token: unexpected status from GET request to https://gcr.io/v2/token?scope=repository%3Acre-prometheus-slo-alerting%2Fexample-server%3Apull&service=gcr.io: 403 Forbidden
+  Warning  Failed     10m (x4 over 12m)     kubelet            Error: ErrImagePull
+  Warning  Failed     10m (x6 over 12m)     kubelet            Error: ImagePullBackOff
+  Normal   BackOff    2m17s (x41 over 12m)  kubelet            Back-off pulling image "gcr.io/cre-prometheus-slo-alerting/example-server:latest"

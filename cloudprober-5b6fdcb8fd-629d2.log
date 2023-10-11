@@ -1,0 +1,58 @@
+Name:             cloudprober-5b6fdcb8fd-629d2
+Namespace:        monitoring
+Priority:         0
+Service Account:  default
+Node:             gke-thbs-default-pool-e558cc4b-7xhm/10.128.0.17
+Start Time:       Fri, 29 Sep 2023 11:13:00 +0000
+Labels:           app=cloudprober
+                  pod-template-hash=5b6fdcb8fd
+Annotations:      <none>
+Status:           Pending
+IP:               10.48.1.60
+IPs:
+  IP:           10.48.1.60
+Controlled By:  ReplicaSet/cloudprober-5b6fdcb8fd
+Containers:
+  cloudprober:
+    Container ID:   
+    Image:          gcr.io/cre-prometheus-slo-alerting/cloudprober:latest
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://:appport/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:appport/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      PORT:              8080
+      CLOUDPROBER_PORT:  8080
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wslp9 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-wslp9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  9m3s                   default-scheduler  Successfully assigned monitoring/cloudprober-5b6fdcb8fd-629d2 to gke-thbs-default-pool-e558cc4b-7xhm
+  Normal   Pulling    7m41s (x4 over 9m2s)   kubelet            Pulling image "gcr.io/cre-prometheus-slo-alerting/cloudprober:latest"
+  Warning  Failed     7m40s (x4 over 9m2s)   kubelet            Failed to pull image "gcr.io/cre-prometheus-slo-alerting/cloudprober:latest": rpc error: code = Unknown desc = failed to pull and unpack image "gcr.io/cre-prometheus-slo-alerting/cloudprober:latest": failed to resolve reference "gcr.io/cre-prometheus-slo-alerting/cloudprober:latest": failed to authorize: failed to fetch oauth token: unexpected status from GET request to https://gcr.io/v2/token?scope=repository%3Acre-prometheus-slo-alerting%2Fcloudprober%3Apull&service=gcr.io: 403 Forbidden
+  Warning  Failed     7m40s (x4 over 9m2s)   kubelet            Error: ErrImagePull
+  Warning  Failed     7m14s (x6 over 9m1s)   kubelet            Error: ImagePullBackOff
+  Normal   BackOff    3m52s (x21 over 9m1s)  kubelet            Back-off pulling image "gcr.io/cre-prometheus-slo-alerting/cloudprober:latest"

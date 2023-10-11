@@ -1,0 +1,60 @@
+Name:             prometheus-fbbf5bb9b-65mgw
+Namespace:        monitoring
+Priority:         0
+Service Account:  prometheus
+Node:             gke-thbs-default-pool-e558cc4b-7xhm/10.128.0.17
+Start Time:       Fri, 29 Sep 2023 11:13:00 +0000
+Labels:           app=prometheus
+                  pod-template-hash=fbbf5bb9b
+Annotations:      <none>
+Status:           Pending
+IP:               10.48.1.61
+IPs:
+  IP:           10.48.1.61
+Controlled By:  ReplicaSet/prometheus-fbbf5bb9b
+Containers:
+  prometheus:
+    Container ID:   
+    Image:          gcr.io/cre-prometheus-slo-alerting/prometheus:latest
+    Image ID:       
+    Port:           9090/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /prometheus from pd (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bxndl (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  pd:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  prometheus-disk
+    ReadOnly:   false
+  kube-api-access-bxndl:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age                  From                     Message
+  ----     ------                  ----                 ----                     -------
+  Normal   Scheduled               10m                  default-scheduler        Successfully assigned monitoring/prometheus-fbbf5bb9b-65mgw to gke-thbs-default-pool-e558cc4b-7xhm
+  Normal   SuccessfulAttachVolume  10m                  attachdetach-controller  AttachVolume.Attach succeeded for volume "pvc-851ebaa1-e195-4ecc-a1b7-7fa8fc5f54b8"
+  Normal   Pulling                 8m54s (x4 over 10m)  kubelet                  Pulling image "gcr.io/cre-prometheus-slo-alerting/prometheus:latest"
+  Warning  Failed                  8m53s (x4 over 10m)  kubelet                  Failed to pull image "gcr.io/cre-prometheus-slo-alerting/prometheus:latest": rpc error: code = Unknown desc = failed to pull and unpack image "gcr.io/cre-prometheus-slo-alerting/prometheus:latest": failed to resolve reference "gcr.io/cre-prometheus-slo-alerting/prometheus:latest": failed to authorize: failed to fetch oauth token: unexpected status from GET request to https://gcr.io/v2/token?scope=repository%3Acre-prometheus-slo-alerting%2Fprometheus%3Apull&service=gcr.io: 403 Forbidden
+  Warning  Failed                  8m53s (x4 over 10m)  kubelet                  Error: ErrImagePull
+  Warning  Failed                  8m41s (x6 over 10m)  kubelet                  Error: ImagePullBackOff
+  Normal   BackOff                 22s (x42 over 10m)   kubelet                  Back-off pulling image "gcr.io/cre-prometheus-slo-alerting/prometheus:latest"
