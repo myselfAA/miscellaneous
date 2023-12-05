@@ -1,0 +1,183 @@
+1.
+wget https://corretto.aws/downloads/latest/amazon-corretto-8-x64-linux-jdk.rpm (downloaded from here)
+
+2.
+rpm -ivh <.rpm file>
+(if it is latest version you have downloaded then it gets updated automatically)
+("/usr/lib/jvm/java-1.8.0-amazon-corretto")
+rpm -qa --last
+
+3.
+update-alternatives --config java (to configure alternative java environment)
+
+update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_version/bin/java" 1 (to install java after untarring it)
+JAVA INSTALLATION: https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOracleJdkDeb.html
+
+4.
+vncserver -kill :1 (for resolving display issues in build)
+
+5.
+perl -pi -e 's/\r\n/\n/g' * (to change the file system to UNIX for all files in current dir)
+
+6.
+/etc/passwd (list all users for the UNIX machine)
+
+7.
+nohup ./___.sh & (to start a service OR run a script in the BG)
+
+8.
+ls PATH | wc -l (count the number of files at specidied PATH)
+
+$ tree /home/user
+4321 directories, 27047 files
+
+$ tree -a /home/user
+9388 directories, 32633 files
+
+9.
+useradd -e 2021-05-10 <username>; passwd <username>
+https://www.geeksforgeeks.org/usermod-command-in-linux-with-examples/
+
+10.
+select distinct tablespace_name from all_tables;
+
+11.
+rsync -avz c630qskgrcapp.int.TR.com:/appserver/server/blrqaent52/ .
+
+12.
+select * from v$version (find ORACLE version)
+
+13.
+cd - (BACK to last dir)
+echo $OLDPWD (stores last dir path)
+
+14.
+:g/KewordToSearch (gives a list of line nos. wherever that keyword is present in the whole file)
+:%s/old/new/g (replace old with new in entire doc; add i after g to ignore case)
+:[range]s/OLD/NEW/[flags] [count]       https://linuxize.com/post/vim-find-replace/
+
+15.
+lsof -i :1600 (find busy ports)
+netstat -atnp|grep 8080
+
+16.
+sqlplus BLRNAVQAENT19/BLRNAVQAENT19@pdbq0657_1 @drop_user_objects.sql BLRNAVQAENT19; impdp ___
+
+17.
+find . -type f -name "*.sh" -exec grep -il proxy_balancer {} \;
+find . -type f -name "*.sh" -exec grep -il /usr/java/jdk1.7.0_79 {} \;
+find . -type f -name "*." -exec grep -il /usr/java/jdk1.7.0_79 {} \;
+find . -type f  -exec grep -il /usr/java/jdk1.7.0_79 {} \;
+
+18.
+swapoff -a && swapon -a; sync; echo 3 > /proc/sys/vm/drop_caches 
+
+19.
+Go to directory which contains weblogic.jar ($WL_HOME/server/lib) and run java -cp weblogic.jar weblogic.version (to check WL version)
+
+20.
+find . -type f ! -name "qwe.log" -delete (delete only files except qwe.log)
+
+21.
+ssh-copy-id user@hostname (execute this from the source machine and hostname is of destination machine to do ssh without p/w)
+https://www.thegeekdiary.com/using-the-ssh-keygen-command-in-linux/
+
+22.
+/usr/sbin/ns-slapd -D /etc/dirsrv/slapd-c738cnwgrcum -i /var/run/dirsrv/slapd-c738cnwgrcum.pid -v (for starting LDAP)
+/usr/sbin/ns-slapd -D /etc/dirsrv/adm-srv -i /var/run/dirsrv/adm-srv.pid -v (for starting admin srv LDAP)
+
+23.
+find . -type f -newermt 2018-01-01 \! -newermt 2019-01-01 -exec rm -fv \{\} \; (delete files from 2018-2019)
+
+24.
+echo "dir1/ dir2/" | xargs -n 1 cp -v path/to/file (cp a file to multiple dir 1&2)
+
+25.
+lsnrctl status (to check listener status)
+
+26.
+export http_proxy="http://webproxy.blr.corp.services:80"
+export https_proxy="http://webproxy.blr.corp.services:80"
+
+27.
+find /path/ -empty -type d (find empty directories in path)
+
+28.
+goto /etc/profile AND add this entry: export HISTTIMEFORMAT='%d/%m/%y %T ' (for getting timestamp for history)
+
+29.
+find & delete a particular dir (recursilvely)
+find . -type d -name ".svn" -exec rm -rvf "{}" \; (svn being hidden dir)
+
+30.
+timedatectl set-timezone Asia/Kolkata (change timezone)
+OR
+rm -frv /etc/localtime; ln -s /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+https://linuxize.com/post/how-to-set-or-change-timezone-in-linux/
+
+31.
+Look for PS1 (under $color_prompt) in ~/.bashrc and delete @\h
+https://askubuntu.com/questions/145618/how-can-i-shorten-my-command-line-bash-prompt
+
+32.
+systemctl unmask <servicename> (unmask a service)
+systemctl enable <servicename> (start the service on bootup)
+https://www.thegeeksearch.com/how-to-control-start-stop-mask-unmask-services-using-systemd/
+
+33.
+lsblk -a (getting disks attached details)
+https://www.geeksforgeeks.org/lsblk-command-in-linux-with-examples/#:~:text=Lsblk%20is%20used%20to%20display,in%20a%20tree%2Dlike%20structure.
+
+34.
+apt-add-repository ppa:ansible/ansible (adds latest ansible to apt repo)
+https://linuxtect.com/how-to-add-apt-repository-in-ubuntu-and-debian/
+
+35.
+7 columns get created on useradd
+name:encryptedpaswd:UID:GID:comment(if any):homedir:defaultshell
+
+36.
+pidof ProcessName (give PID of a process)
+https://www.guru99.com/managing-processes-in-linux.html
+
+
+37.
+hostnamectl set-hostname <name> (change the long hostname)
+LINKS
+=====
+>git rebase and git merge
+https://www.geeksforgeeks.org/git-difference-between-merging-and-rebasing/
+https://www.loginradius.com/blog/engineering/git-rebase-vs-git-merge/
+
+>git stash
+https://www.atlassian.com/git/tutorials/saving-changes/git-stash#:~:text=The%20git%20stash%20command%20takes,committed%3A%20new%20file%3A%20style.
+
+>CLEAN RAM
+https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/
+
+>shm fails (shibboleth issue):
+https://serverfault.com/questions/371068/shared-memory-shmget-fails-no-space-left-on-device-how-to-increase-limits
+
+https://www.suse.com/support/kb/doc/?id=000016370#:~:text=kernel.shmmni%3A%20maximum%20number%20of,maximum%20shared%20memory%20segment%20size
+
+https://www.e2enetworks.com/help/knowledge-base/how-to-solve-apache-error-no-space-left-on-device-cannot-create-sslmutex/
+
+>>SHIBB upgrade
+https://refinitiv-my.sharepoint.com/:w:/r/personal/sibaprasad_pradhan_refinitiv_com/_layouts/15/Doc.aspx?action=edit&sourcedoc=%7B84a498e8-f4c3-4db3-bd16-33123a3326cd%7D
+
+>>MULTI BRANCH SETUP
+https://www.cloudbees.com/blog/jenkins-multibranch-pipeline-with-git-tutorial
+
+>>TERRAFORM OVERVIEW
+https://www.youtube.com/watch?v=l5k1ai_GBDE
+
+
+APACHE DIR SETUP
+================
+blrldap01.int.accel.com
+1391
+ldap.roleBase=ou=Groups,ou=QA,dc=paisley,dc=com
+
+BIND DN
+cn=Directory Manager,dc=paisley,dc=com
+t3l3ph0n3
