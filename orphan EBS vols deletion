@@ -5,3 +5,57 @@ do
      echo "$a will be deleted"
      aws ec2 delete-volume --volume-id $a
 done
+
+###########JENKINS PIPELINE##############
+<<comment
+pipeline {
+	agent {
+		label 'VS-Agent-17'
+	}
+	environment {
+	    AWS_REGION = 'eu-west-2'
+	    AWS_ROLE = 'terraform_role'
+	    AWS_ACCOUNT = '12345678'
+		MAIL_IDS	= 'anunay.2.aman@bt.com'
+	    
+	}
+	stages{
+	    stage("Clean up NOT in-use EBS volumes created 7 or more days ago"){
+	        steps {
+	            script{
+	              
+                    withAWS(role: "arn:aws:iam::$AWS_ACCOUNT:role/$AWS_ROLE", region: "$AWS_REGION", roleAccount: "$AWS_ACCOUNT") {
+                    sh '''
+                      #!bin/sh
+                      for a in `aws ec2 describe-volumes --filters "Name=status,Values=available" --query "Volumes[?CreateTime<=\'$(date --date "7 days ago")\'].VolumeId" --output text`
+                      do
+                           echo "$a will be deleted"
+                           aws ec2 delete-volume --volume-id $a
+                      done
+                    '''
+                    }
+					def status = null
+					if (currentBuild.currentResult == 'ABORTED') {
+						return
+					} else if (currentBuild.currentResult == 'FAILURE') {
+						status = 'JOB FAILED'
+					} else {
+						status = 'JOB SUCCESS'
+					}
+					//if (status != null) {
+					if (status != 'JOB SUCCESS') {
+						emailext(
+							to: 'anunay.2.aman@bt.com',
+							subject: "${status}: Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'",
+							body: """
+								<p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER}\'</b></p>
+								<p>Status: <b> (currently: ${currentBuild.currentResult})</p>
+								<p>View console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p>"""
+						)
+					}
+	            }
+	        }
+	    }
+	}
+}
+comment
