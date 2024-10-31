@@ -1,0 +1,7 @@
+#!bin/sh
+########################## shell script to check ebs volumes created 7 or more days ago and delete if in AVAILABLE state ====================================== 
+for a in `aws ec2 describe-volumes --filters "Name=status,Values=available" --query "Volumes[?CreateTime<=\'$(date --date "7 days ago")\'].VolumeId" --output text`
+do
+     echo "$a will be deleted"
+     aws ec2 delete-volume --volume-id $a
+done
